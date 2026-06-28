@@ -1,12 +1,9 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useEffect, useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
-
-
-import { FilterType } from '@/shared/api/types/Filter';
-import type { FilterItem } from '@/shared/api/types/Filter/FilterItem';
-import type { SearchRequestFilter } from '@/shared/api/types/SearchRequest/SearchRequestFilter';
-
+import { FilterType } from '@/shared/api/types/Filter'
+import type { FilterItem } from '@/shared/api/types/Filter/FilterItem'
+import type { SearchRequestFilter } from '@/shared/api/types/SearchRequest/SearchRequestFilter'
 
 interface FilterModalProps {
 	isOpen: boolean
@@ -17,7 +14,7 @@ interface FilterModalProps {
 }
 
 const cloneFilters = (filters: SearchRequestFilter): SearchRequestFilter =>
-	filters.map((filter) => ({
+	filters.map(filter => ({
 		id: filter.id,
 		type: filter.type,
 		optionsIds: [...filter.optionsIds]
@@ -29,7 +26,7 @@ const toggleOption = (
 	optionId: string
 ): SearchRequestFilter => {
 	const nextFilters = cloneFilters(filters)
-	const groupIndex = nextFilters.findIndex((filter) => filter.id === groupId)
+	const groupIndex = nextFilters.findIndex(filter => filter.id === groupId)
 
 	if (groupIndex === -1) {
 		return [
@@ -46,10 +43,10 @@ const toggleOption = (
 	const hasOption = currentGroup.optionsIds.includes(optionId)
 
 	currentGroup.optionsIds = hasOption
-		? currentGroup.optionsIds.filter((id) => id !== optionId)
+		? currentGroup.optionsIds.filter(id => id !== optionId)
 		: [...currentGroup.optionsIds, optionId]
 
-	return nextFilters.filter((filter) => filter.optionsIds.length > 0)
+	return nextFilters.filter(filter => filter.optionsIds.length > 0)
 }
 
 const useDraftFilters = (
@@ -84,7 +81,7 @@ export const FilterModal = ({
 	const [isConfirmOpen, setIsConfirmOpen] = useState(false)
 
 	const draftById = useMemo(
-		() => new Map(draftFilters.map((filter) => [filter.id, filter])),
+		() => new Map(draftFilters.map(filter => [filter.id, filter])),
 		[draftFilters]
 	)
 
@@ -94,7 +91,7 @@ export const FilterModal = ({
 	}
 
 	const handleOptionToggle = (groupId: string, optionId: string) => {
-		setDraftFilters((current) => toggleOption(current, groupId, optionId))
+		setDraftFilters(current => toggleOption(current, groupId, optionId))
 	}
 
 	const handleApplyClick = () => {
@@ -127,7 +124,7 @@ export const FilterModal = ({
 				aria-labelledby="filter-modal-title"
 				aria-modal="true"
 				className="relative w-full max-w-4xl max-h-[90vh] overflow-hidden rounded-3xl bg-white shadow-2xl"
-				onClick={(event) => event.stopPropagation()}
+				onClick={event => event.stopPropagation()}
 				role="dialog"
 			>
 				<header className="flex items-start justify-between gap-6 border-b border-slate-200 px-6 py-5">
@@ -145,7 +142,10 @@ export const FilterModal = ({
 						onClick={handleOverlayClick}
 						type="button"
 					>
-						<span aria-hidden="true" className="text-xl leading-none">
+						<span
+							aria-hidden="true"
+							className="text-xl leading-none"
+						>
 							×
 						</span>
 					</button>
@@ -153,7 +153,7 @@ export const FilterModal = ({
 
 				<div className="max-h-[calc(90vh-140px)] overflow-y-auto px-6 py-5">
 					<div className="space-y-4">
-						{filterItems.map((filterItem) => {
+						{filterItems.map(filterItem => {
 							const selectedGroup = draftById.get(filterItem.id)
 
 							return (
@@ -168,7 +168,7 @@ export const FilterModal = ({
 									</div>
 
 									<div className="grid gap-3 md:grid-cols-2">
-										{filterItem.options.map((option) => {
+										{filterItem.options.map(option => {
 											const isChecked = selectedGroup?.optionsIds.includes(
 												option.id
 											)
@@ -222,7 +222,7 @@ export const FilterModal = ({
 			{isConfirmOpen ? (
 				<div
 					className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-950/55 p-4"
-					onClick={(event) => event.stopPropagation()}
+					onClick={event => event.stopPropagation()}
 				>
 					<div
 						aria-labelledby="confirm-dialog-title"

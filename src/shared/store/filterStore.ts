@@ -7,7 +7,7 @@ interface FilterStoreState {
 	setAppliedFilters: (filters: SearchRequestFilter) => void
 }
 
-export const useFilterStore = create<FilterStoreState>((set) => ({
+export const useFilterStore = create<FilterStoreState>(set => ({
 	appliedFilters: [],
-	setAppliedFilters: (filters) => set({ appliedFilters: filters })
+	setAppliedFilters: filters => set({ appliedFilters: filters })
 }))

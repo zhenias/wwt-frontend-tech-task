@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { useFilterDataQuery } from '@/shared/api/filter/useFilterDataQuery'
 import type { SearchRequestFilter } from '@/shared/api/types/SearchRequest/SearchRequestFilter'
 import { useFilterStore } from '@/shared/store/filterStore'
 
 import { FilterModal } from './FilterModal'
-import { useFilterDataQuery } from '@/shared/api/filter/useFilterDataQuery'
 
 const formatFilters = (filters: SearchRequestFilter) =>
 	JSON.stringify(filters, null, 2)
@@ -13,8 +13,8 @@ const formatFilters = (filters: SearchRequestFilter) =>
 export const App = () => {
 	const { t } = useTranslation('filter')
 	const { data, isLoading, isError } = useFilterDataQuery()
-	const appliedFilters = useFilterStore((state) => state.appliedFilters)
-	const setAppliedFilters = useFilterStore((state) => state.setAppliedFilters)
+	const appliedFilters = useFilterStore(state => state.appliedFilters)
+	const setAppliedFilters = useFilterStore(state => state.setAppliedFilters)
 	const [isModalOpen, setIsModalOpen] = useState(false)
 
 	const openModal = () => {
