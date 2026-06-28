@@ -25,13 +25,13 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
 
       - name: Run build
-        run: pnpm run build
+        run: npm run build
 
       - name: Run format
-        run: pnpm run format:check:all
+        run: npm run format:check:all
 
       - name: Run lint
-        run: pnpm run lint:all
+        run: npm run lint:all
